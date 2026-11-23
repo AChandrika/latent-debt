@@ -1,0 +1,13 @@
+[project]
+name = "latent-debt"
+version = "0.1.0"
+description = "A long-horizon RL environment where early shortcuts cause failures much later"
+requires-python = ">=3.10"
+dependencies = []
+
+[project.optional-dependencies]
+llm = ["openai>=1.0"]
+dev = ["pytest"]
+
+[tool.setuptools]
+packages = ["latent_debt"]

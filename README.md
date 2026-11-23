@@ -24,9 +24,9 @@ python -m latent_debt.run --agent llm --seeds 10
 
 | Agent | Final score | Features shipped | Incidents | Features at day 10 / 20 / 30 / 40 / 50 |
 |---|---|---|---|---|
-| Random | 3.98 ± 4.74 | 8.14 | 0.31 | 1.0 / 2.6 / 4.4 / 6.1 / 8.1 |
-| Greedy (ship every day) | -26.03 ± 9.24 | 5.38 | 9.16 | 7.2 / 11.3 / **14.4** / 13.0 / 5.4 |
-| Heuristic (sensible lead) | **9.03 ± 7.28** | 15.38 | 1.47 | 5.5 / 8.3 / 11.0 / 12.4 / 15.4 |
+| Random | 3.98 ± 4.74 | 8.14 | 0.31 | 1.01 / 2.59 / 4.35 / 6.14 / 8.14 |
+| Greedy (ship every day) | -26.03 ± 9.24 | 5.38 | 9.16 |  7.24 / 11.31 / 14.35 / 12.95 / 5.38 |
+| Heuristic (sensible lead) | **9.03 ± 7.28** | 15.38 | 1.47 | 5.46 / 8.33 / 11.04 / 12.43 / 15.38 |
 
 The design rule holds: the greedy agent leads for the first 30 days, then its early shortcuts come due. Its first incident lands on day 31 on average, about 27 days after the shortcut that caused it. Degenerate strategies (only maintenance, only investigating) score 0, and escalating every day goes negative. A slightly better hand-written policy reaches about 15, so there is room for a trained model to beat the heuristic.
 

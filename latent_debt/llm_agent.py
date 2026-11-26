@@ -19,7 +19,8 @@ from .text_wrapper import SYSTEM_PROMPT, parse_action, render
 
 class LLMAgent:
     def __init__(self, model: str | None = None, base_url: str | None = None,
-                 api_key: str | None = None, history_days: int = 10, temperature: float = 0.2):
+                 api_key: str | None = None, history_days: int = 4, temperature: float = 0.2,
+                 max_tokens: int = 120):
         from openai import OpenAI   # imported here so baselines run without the package
 
         self.client = OpenAI(base_url=base_url or os.getenv("LLM_BASE_URL"),
@@ -27,6 +28,7 @@ class LLMAgent:
         self.model = model or os.getenv("LLM_MODEL", "qwen2.5:7b")
         self.history_days = history_days
         self.temperature = temperature
+        self.max_tokens = max_tokens     # short replies are the biggest speed-up on a laptop
         self.reset()
 
     def reset(self) -> None:
@@ -40,6 +42,7 @@ class LLMAgent:
             model=self.model,
             messages=[{"role": "system", "content": SYSTEM_PROMPT}, *window],
             temperature=self.temperature,
+            max_tokens=self.max_tokens,
         )
         reply = resp.choices[0].message.content or ""
         action = parse_action(reply) or "ship_feature"     # unparseable reply -> count as default
